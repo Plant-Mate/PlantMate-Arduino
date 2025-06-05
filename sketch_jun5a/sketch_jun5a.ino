@@ -9,6 +9,7 @@
 #define DHTTYPE DHT11  // 型號是 DHT11
 DHT dht(DHTPIN, DHTTYPE);
 WiFiClient wifiClient;
+
 PubSubClient client(wifiClient);
 const char* mqtt_server = "192.168.0.114"; // 例如 "192.168.1.10"
 const int   mqtt_port = 1883;
