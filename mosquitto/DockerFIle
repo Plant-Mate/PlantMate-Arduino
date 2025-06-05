@@ -1,2 +1,2 @@
 FROM eclipse-mosquitto:latest
-COPY mosquitto.conf /config/mosquitto.conf
+COPY mosquitto.conf /mosquitto/config/mosquitto.conf
