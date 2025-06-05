@@ -1,8 +1,3 @@
 FROM telegraf:latest
-
-# 安裝envsubst
-RUN apk add --no-cache gettext
-COPY telegraf.conf.template /etc/telegraf/telegraf.conf.template
-
-# 啟動時用 envsubst 產生 telegraf.conf
-ENTRYPOINT ["/bin/sh", "-c", "envsubst < /etc/telegraf/telegraf.conf.template > /etc/telegraf/telegraf.conf && exec telegraf --config /etc/telegraf/telegraf.conf"]
+# 複製本地 telegraf.conf 進容器指定目錄
+COPY telegraf.conf /etc/telegraf/telegraf.conf
