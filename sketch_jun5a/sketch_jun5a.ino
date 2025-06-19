@@ -5,6 +5,7 @@
 #define EEPROM_SIZE 96
 #define SSID_ADDR 0
 #define PASS_ADDR 32
+#define SOIL_PIN A0
 #define DHTPIN 2       // DHT11 DATA腳接在 D2
 #define DHTTYPE DHT11  // 型號是 DHT11
 DHT dht(DHTPIN, DHTTYPE);
@@ -112,7 +113,7 @@ void loop() {
 
   float humidity = dht.readHumidity();
   float temperature = dht.readTemperature();
-
+  int soilValue = analogRead(SOIL_PIN);  // 0~1023, 值越大代表越乾
   if (isnan(humidity) || isnan(temperature)) {
     Serial.println("Failed to read from DHT11!");
     return;
@@ -121,6 +122,8 @@ void loop() {
   Serial.println(humidity);
   Serial.print("temperature: ");
   Serial.println(temperature);
+  Serial.print("soil: ");
+  Serial.println(soilValue);
   char tempBuffer[10];
   char humBuffer[10];
 
@@ -130,8 +133,8 @@ void loop() {
   // 組成JSON payload
   char payload[128];
   snprintf(payload, sizeof(payload),
-    "{\"sensor_id\":\"%s\",\"temperature\":%s,\"humidity\":%s}",
-    sensor_id, tempBuffer, humBuffer);
+    "{\"sensor_id\":\"%s\",\"temperature\":%s,\"humidity\":%s,\"soil\":%d}",
+    sensor_id, tempBuffer, humBuffer, soilValue);
   Serial.print("Sending MQTT payload: ");
   Serial.println(payload);
 
