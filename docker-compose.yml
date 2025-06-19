@@ -22,6 +22,12 @@ services:
             - ./telegraf/telegraf.conf:/etc/telegraf/telegraf.conf:ro
         depends_on:
             - influxdb
+        environment:
+            - INFLUXDB_URL=http://influxdb:8086
+            - INFLUXDB_TOKEN=${INFLUXDB_TOKEN}
+            - INFLUXDB_ORG=${INFLUXDB_ORG}
+            - INFLUXDB_BUCKET=${INFLUXDB_BUCKET}
+            - MOSQUITTO_URL=tcp://mosquitto:1883
     mosquitto:
         image: eclipse-mosquitto:latest
         container_name: mosquitto

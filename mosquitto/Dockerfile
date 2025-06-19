@@ -32,5 +32,4 @@ VOLUME ["/etc/telegraf", "/mosquitto/config", "/mosquitto/data", "/mosquitto/log
 EXPOSE 1883
 
 # 一起啟動 telegraf & mosquitto
-CMD mosquitto -c /mosquitto/config/mosquitto.conf & \
-    telegraf --config /etc/telegraf/telegraf.conf
+CMD mosquitto -c /mosquitto/config/mosquitto.conf
